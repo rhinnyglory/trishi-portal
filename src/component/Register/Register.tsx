@@ -23,61 +23,63 @@ const Register = () => {
                     <div className="tab-content" id="myTabContent">
                         <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                             <h3 className="register-heading">Trishi Portal</h3>
-                            <div className="row register-form">
-                                <div className="col-md-6">
-                                    <div className=" form-group mb-3">
-                                        <input type="text" className="form-control" placeholder="First Name *" value="" />
+                            <form>
+                                <div className="row register-form">
+                                    <div className="col-md-6">
+                                        <div className=" form-group mb-3">
+                                            <input type="text" className="form-control" placeholder="First Name *" value="" />
+                                        </div>
+                                        <div className=" form-group mb-3">
+                                            <input type="text" className="form-control" placeholder="Middle Name *" value="" />
+                                        </div>
+                                        <div className=" form-group mb-3">
+                                            <input type="text" className="form-control" placeholder="Last Name *" value="" />
+                                        </div>
+                                        <div className=" form-group mb-3">
+                                            <input type="email" className="form-control" placeholder="Your Email *" value="" />
+                                        </div>
+                                        <div className=" form-group mb-3">
+                                            <input type="text" minLength={10} maxLength={10} name="txtEmpPhone" className="form-control" placeholder="Your Phone *" value="" />
+                                        </div>
+                                        <div className=" form-group mb-3">
+                                            <input type="text" className="form-control" placeholder="Address Line 1 *" value="" />
+                                        </div>
+                                        <div className=" form-group mb-3">
+                                            <input type="text" className="form-control" placeholder="Address Line 2 *" value="" />
+                                        </div>
+                                        <div className=" form-group mb-3">
+                                            <input type="text" className="form-control" placeholder="Address Line 3 *" value="" />
+                                        </div>
                                     </div>
-                                    <div className=" form-group mb-3">
-                                        <input type="text" className="form-control" placeholder="Middle Name *" value="" />
-                                    </div>
-                                    <div className=" form-group mb-3">
-                                        <input type="text" className="form-control" placeholder="Last Name *" value="" />
-                                    </div>
-                                    <div className=" form-group mb-3">
-                                        <input type="email" className="form-control" placeholder="Your Email *" value="" />
-                                    </div>
-                                    <div className=" form-group mb-3">
-                                        <input type="text" minLength={10} maxLength={10} name="txtEmpPhone" className="form-control" placeholder="Your Phone *" value="" />
-                                    </div>
-                                    <div className=" form-group mb-3">
-                                        <input type="text" className="form-control" placeholder="Address Line 1 *" value="" />
-                                    </div>
-                                    <div className=" form-group mb-3">
-                                        <input type="text" className="form-control" placeholder="Address Line 2 *" value="" />
-                                    </div>
-                                    <div className=" form-group mb-3">
-                                        <input type="text" className="form-control" placeholder="Address Line 3 *" value="" />
+                                    <div className="col-md-6">
+                                        <div className=" form-group mb-3">
+                                            <input type="text" className="form-control" placeholder="Company Name *" value="" />
+                                        </div>
+                                        <div className=" form-group mb-3">
+                                            <input type="text" className="form-control" placeholder="GSTIN *" value="" />
+                                        </div>
+                                        <div className=" form-group mb-3">
+                                            <input type="text" className="form-control" placeholder="PAN *" value="" />
+                                        </div>
+                                        <div className=" form-group mb-3">
+                                            <input type="text" className="form-control" placeholder="PIN Code *" value="" />
+                                        </div>
+                                        <div className=" form-group mb-3">
+                                            <input type="text" className="form-control" placeholder="Location *" value="" />
+                                        </div>
+                                        <div className=" form-group mb-3">
+                                            <input type="text" className="form-control" placeholder="Username *" value="" />
+                                        </div>
+                                        <div className=" form-group mb-3">
+                                            <input type="password" className="form-control" placeholder="Password *" value="" />
+                                        </div>
+                                        <div className=" form-group mb-3">
+                                            <input type="password" className="form-control" placeholder="Confirm Password *" value="" />
+                                        </div>
+                                        <input type="submit" className="btnRegister" value="Register" />
                                     </div>
                                 </div>
-                                <div className="col-md-6">
-                                    <div className=" form-group mb-3">
-                                        <input type="text" className="form-control" placeholder="Company Name *" value="" />
-                                    </div>
-                                    <div className=" form-group mb-3">
-                                        <input type="text" className="form-control" placeholder="GSTIN *" value="" />
-                                    </div>
-                                    <div className=" form-group mb-3">
-                                        <input type="text" className="form-control" placeholder="PAN *" value="" />
-                                    </div>
-                                    <div className=" form-group mb-3">
-                                        <input type="text" className="form-control" placeholder="PIN Code *" value="" />
-                                    </div>
-                                    <div className=" form-group mb-3">
-                                        <input type="text" className="form-control" placeholder="Location *" value="" />
-                                    </div>
-                                    <div className=" form-group mb-3">
-                                        <input type="text" className="form-control" placeholder="Username *" value="" />
-                                    </div>
-                                    <div className=" form-group mb-3">
-                                        <input type="password" className="form-control" placeholder="Password *" value="" />
-                                    </div>
-                                    <div className=" form-group mb-3">
-                                        <input type="password" className="form-control" placeholder="Confirm Password *" value="" />
-                                    </div>
-                                    <input type="submit" className="btnRegister" value="Register" />
-                                </div>
-                            </div>
+                            </form>
                         </div>
                         <div className="tab-pane fade show" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                             <h3 className="register-heading">Apply as a Hirer</h3>
