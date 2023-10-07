@@ -1,7 +1,7 @@
 import React from "react"
-import "./Login.css"
+import "./ResetPassword.css"
 
-const Login = () => {
+const ResetPassword = () => {
   return (
     <div className="container-fluid login registration-block">
       <div className="row">
@@ -12,7 +12,7 @@ const Login = () => {
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Debitis unde repellendus,
             necessitatibus
           </p>
-          <input type="submit" name="" value="Register" />
+          <input type="submit" name="" value="Login" />
           <br />
         </div>
         <div className="col-md-9 login-right">
@@ -53,13 +53,14 @@ const Login = () => {
             >
               <h3 className="login-heading">Trishi Portal</h3>
               <div className="row login-form">
+                <h6>Reset Password</h6>
                 <div className="row">
                   <div className="col-md-6 offset-3">
                     <div className=" form-group mb-3">
                       <input
                         type="text"
                         className="form-control"
-                        placeholder="User Name *"
+                        placeholder="Enter new password *"
                         value=""
                       />
                     </div>
@@ -67,20 +68,9 @@ const Login = () => {
                       <input
                         type="text"
                         className="form-control"
-                        placeholder="Password *"
+                        placeholder="Confirm password *"
                         value=""
                       />
-                    </div>
-                    <div className="form-check d-flex">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        value=""
-                        id="flexCheckDefault"
-                      />
-                      <label className="form-check-label px-2" htmlFor="flexCheckDefault">
-                        Remember
-                      </label>
                     </div>
                   </div>
                 </div>
@@ -88,17 +78,9 @@ const Login = () => {
                 <div className="row ">
                   <div className="col-md-8">
                     <div className="form-group">
-                      <input type="submit" className="btnRegister" value="Login" />
+                      <input type="submit" className="btnReset" value="Reset" />
                     </div>
                   </div>
-                </div>
-                <div className="row mt-4">
-                  <h6>
-                    Forget Password{" "}
-                    <span>
-                      <a href="#login">Click Here</a>
-                    </span>
-                  </h6>
                 </div>
               </div>
             </div>
@@ -109,4 +91,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default ResetPassword
