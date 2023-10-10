@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import './Authentication.css';
 
-const Authentication: React.FunctionComponent<any> = props => {
+const Authentication: React.FunctionComponent<any> = (props: any) => {
     const location = useLocation();
+
+    useEffect(() => {
+        console.log(location, 'sdfsdfg')
+    }, [location.pathname]);
+
     const { children } = props;
-    console.log(location.pathname, 'sdfsdfg')
 
     return (
         <div className="container-fluid authenticate">
@@ -14,7 +18,7 @@ const Authentication: React.FunctionComponent<any> = props => {
                     <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt="" />
                     <h2>Trishi Portal</h2>
                     <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Debitis unde repellendus, necessitatibus sit et in architecto! Doloremque excepturi laboriosam ratione laborum sequi nobis sunt voluptate esse. Natus consequuntur doloremque ad!</p>
-                    {location.pathname == "/auth/login" ?
+                    {location.pathname == "/auth/login" || "/" ?
                         <><button><Link to="/auth/register">Signup</Link></button><br /></>
                         : <><button><Link to="/auth/login">Login</Link></button><br /></>
                     }

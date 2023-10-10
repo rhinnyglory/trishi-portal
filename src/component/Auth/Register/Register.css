@@ -71,3 +71,8 @@
   margin-bottom: -15%;
   color: #495057;
 }
+
+.errorMsg {
+  font-size: 12px;
+  text-align: left;
+}
