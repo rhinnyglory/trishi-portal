@@ -101,3 +101,8 @@
     border-top-left-radius: 1.5rem;
     border-bottom-left-radius: 1.5rem;
 }
+
+.errorMsg {
+    font-size: 12px;
+    text-align: left;
+  }
