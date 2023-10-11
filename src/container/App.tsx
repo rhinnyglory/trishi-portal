@@ -1,8 +1,9 @@
 import React, { useState } from "react"
 import "./App.css"
-import { Login, Register, ResetPassword, ForgotPassword } from "../component"
+import { Login, Register, ResetPassword, ForgotPassword, Home } from "../component"
 import { Routes, Route, useLocation } from "react-router-dom";
 import Authentication from "../component/Auth/Authentication"
+import AuthGuard from "../guard/AuthGuard";
 
 function App() {
   const [location, setLocation] = useState();
@@ -11,10 +12,11 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<Authentication><Login /></Authentication>}></Route>
-        <Route path="/auth/login" element={<Authentication><Login /></Authentication>}></Route>
-        <Route path="/auth/register" element={<Authentication><Register /></Authentication>}></Route>
-        <Route path="/auth/forgotPassword" element={<Authentication><ForgotPassword /></Authentication>}></Route>
-        <Route path="/auth/resetPassword" element={<Authentication><ResetPassword /></Authentication>}></Route>
+        <Route path="/login" element={<Authentication><Login /></Authentication>}></Route>
+        <Route path="/register" element={<Authentication><Register /></Authentication>}></Route>
+        <Route path="/forgotPassword" element={<Authentication><ForgotPassword /></Authentication>}></Route>
+        <Route path="/resetPassword" element={<Authentication><ResetPassword /></Authentication>}></Route>
+        <Route path="/home" element={<AuthGuard><Home /></AuthGuard>}></Route>
       </Routes>
     </div>
   )

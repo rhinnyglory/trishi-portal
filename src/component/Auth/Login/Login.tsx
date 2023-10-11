@@ -2,13 +2,15 @@ import React from "react"
 import "./Login.css"
 import { Link } from "react-router-dom"
 import { Controller, SubmitHandler, useForm } from "react-hook-form"
+import { SignIn } from "../../../store/slices/user"
+import { connect } from "react-redux"
 
 type FormValues = {
     userName: string
     password: string
 }
 
-const Login = () => {
+const Login = (props: any) => {
     const form = useForm<FormValues>()
     const {
         register,
@@ -20,7 +22,8 @@ const Login = () => {
 
     const onSubmit: SubmitHandler<FormValues> = (data: FormValues) => {
         if (data) {
-            console.log(data)
+            console.log(data);
+            props.signIn(data);
         }
     }
     console.log(errors, "errors")
@@ -91,4 +94,16 @@ const Login = () => {
     )
 }
 
-export default Login
+const mapSateToProps = (state: any) => {
+    return {
+
+    }
+}
+
+const mapDispatchToProps = (dispatch: any) => {
+    return {
+        signIn: (data: any) => dispatch(SignIn(data))
+    }
+}
+
+export default connect(mapSateToProps, mapDispatchToProps)(Login)
