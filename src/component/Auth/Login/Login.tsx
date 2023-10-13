@@ -94,7 +94,7 @@ const Login = (props: any) => {
     )
 }
 
-const mapSateToProps = (state: any) => {
+const mapStateToProps = (state: any) => {
     return {
 
     }
@@ -106,4 +106,4 @@ const mapDispatchToProps = (dispatch: any) => {
     }
 }
 
-export default connect(mapSateToProps, mapDispatchToProps)(Login)
+export default connect(mapStateToProps, mapDispatchToProps)(Login)
