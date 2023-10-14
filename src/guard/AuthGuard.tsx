@@ -24,9 +24,7 @@ const AuthGuard: React.FunctionComponent<any> = props => {
       <div className="row">
         {/* {toggle && (
         )} */}
-          <div className="col-4 col-md-2 px-0  bg-primary vh-100 position-fixed">
-            <Sidebar></Sidebar>
-          </div>
+        <Sidebar></Sidebar>
         {/* {toggle && <div className="col-4 col-md-2"></div>} */}
         <div className="col px-0">
           <Header />
