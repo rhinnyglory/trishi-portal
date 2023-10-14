@@ -4,26 +4,30 @@ import ReactDOM from 'react-dom';
 import { Button, Modal } from 'react-bootstrap';
 import { gstinFormat } from '../../../constant/constant';
 import './Register.css';
+import { SignUp } from '../../../store/slices/user';
+import { connect } from "react-redux"
+
 
 type FormValues = {
-    firstName: string
-    lastName: string
+    employerFname: string
+    employerMname:string
+    employerLname: string
     email: string
-    mobileNumber: string
-    address1: string
-    address2: string
-    address3: string
+    mobile: string
+    addressLine1: string
+    addressLine2: string
+    addressLine3: string
     companyName: string
     gstin: string
     pan: string
-    pinCode: string
+    pin: string
     location: string
     userName: string
-    password: string
+    userPwd: string
     confirmPassword: string
 }
 
-const Register = () => {
+const Register = (props: any) => {
     const form = useForm<FormValues>();
     const {
         register,
@@ -32,11 +36,12 @@ const Register = () => {
         watch,
         formState: { errors }
     } = form;
-    const password = watch('password', '');
+    const userPwd = watch('userPwd', '');
     const confirmPassword = watch('confirmPassword', '');
     const onSubmit: SubmitHandler<FormValues> = (data: FormValues) => {
         if (data) {
             handleShow();
+            props.signUp(data);
         }
         console.log(data);
     }
@@ -56,25 +61,25 @@ const Register = () => {
                     <div className="row authenticate-form">
                         <div className="col-md-6">
                             <div className=" form-group mb-3">
-                                <input type="text" id='firstName' className={errors?.firstName?.message ? "form-control is-invalid" : "form-control"} placeholder="First name *" {...register("firstName", {
+                                <input type="text" id='employerFname' className={errors?.employerFname?.message ? "form-control is-invalid" : "form-control"} placeholder="First name *" {...register("employerFname", {
                                     required: {
                                         value: true,
                                         message: "First name is required."
                                     }, maxLength: 80
                                 })} />
-                                <p className='text-danger errorMsg'>{errors?.firstName?.message}</p>
+                                <p className='text-danger errorMsg'>{errors?.employerFname?.message}</p>
                             </div>
                             <div className=" form-group mb-3">
-                                <input type="text" id='middleName' className="form-control" placeholder="Middle Name" />
+                                <input type="text" id='employerMname' className="form-control" placeholder="Middle Name" {...register("employerMname")} />
                             </div>
                             <div className=" form-group mb-3">
-                                <input type="text" className={errors?.lastName?.message ? "form-control is-invalid" : "form-control"} placeholder="Last name *" {...register("lastName", {
+                                <input type="text" className={errors?.employerLname?.message ? "form-control is-invalid" : "form-control"} placeholder="Last name *" {...register("employerLname", {
                                     required: {
                                         value: true,
                                         message: "Last name is required."
                                     }, maxLength: 100
                                 })} />
-                                <p className='text-danger errorMsg'>{errors.lastName?.message}</p>
+                                <p className='text-danger errorMsg'>{errors.employerLname?.message}</p>
                             </div>
                             <div className=" form-group mb-3">
                                 <input type="text" className={errors?.email?.message ? "form-control is-invalid" : "form-control"} placeholder="Email *" {...register("email", {
@@ -90,7 +95,7 @@ const Register = () => {
                                 <p className='text-danger errorMsg'>{errors.email?.message}</p>
                             </div>
                             <div className=" form-group mb-3">
-                                <input type="tel" className={errors?.mobileNumber?.message ? "form-control is-invalid" : "form-control"} placeholder="Mobile number *" {...register("mobileNumber", {
+                                <input type="tel" className={errors?.mobile?.message ? "form-control is-invalid" : "form-control"} placeholder="Mobile number *" {...register("mobile", {
                                     required: {
                                         value: true,
                                         message: "Mobile number is required."
@@ -99,23 +104,23 @@ const Register = () => {
                                         message: "Enter valid number!"
                                     }, minLength: 6, maxLength: 12
                                 })} />
-                                <p className='text-danger errorMsg'>{errors.mobileNumber?.message}</p>
+                                <p className='text-danger errorMsg'>{errors.mobile?.message}</p>
                             </div>
                             <div className=" form-group mb-3">
-                                <input type="text" className={errors?.address1?.message ? "form-control is-invalid" : "form-control"} placeholder="Address Line 1 *" {...register("address1",
+                                <input type="text" className={errors?.addressLine1?.message ? "form-control is-invalid" : "form-control"} placeholder="Address Line 1 *" {...register("addressLine1",
                                     {
                                         required: {
                                             value: true,
                                             message: "Address line is required."
                                         }, minLength: 6, maxLength: 80
                                     })} />
-                                <p className='text-danger errorMsg'>{errors.address1?.message}</p>
+                                <p className='text-danger errorMsg'>{errors.addressLine1?.message}</p>
                             </div>
                             <div className=" form-group mb-3">
-                                <input type="text" className="form-control" placeholder="Address Line 2" {...register("address2", { maxLength: 80 })} />
+                                <input type="text" className="form-control" placeholder="Address Line 2" {...register("addressLine2", { maxLength: 80 })} />
                             </div>
                             <div className=" form-group mb-3">
-                                <input type="text" className="form-control" placeholder="Address Line 3" {...register("address3", { maxLength: 80 })} />
+                                <input type="text" className="form-control" placeholder="Address Line 3" {...register("addressLine3", { maxLength: 80 })} />
                             </div>
                         </div>
                         <div className="col-md-6">
@@ -156,7 +161,7 @@ const Register = () => {
                                 <p className='text-danger errorMsg'>{errors.pan?.message}</p>
                             </div>
                             <div className=" form-group mb-3">
-                                <input type="text" className={errors?.pinCode?.message ? "form-control is-invalid" : "form-control"} placeholder="PIN Code *" {...register("pinCode", {
+                                <input type="text" className={errors?.pin?.message ? "form-control is-invalid" : "form-control"} placeholder="PIN Code *" {...register("pin", {
                                     required: {
                                         value: true,
                                         message: "PIN code is required."
@@ -165,7 +170,7 @@ const Register = () => {
                                         message: "Enter valid PIN Code."
                                     }, minLength: 6
                                 })} />
-                                <p className='text-danger errorMsg'>{errors.pinCode?.message}</p>
+                                <p className='text-danger errorMsg'>{errors.pin?.message}</p>
                             </div>
                             <div className=" form-group mb-3">
                                 <input type="text" className={errors?.location?.message ? "form-control is-invalid" : "form-control"} placeholder="Location *" {...register("location", {
@@ -190,7 +195,7 @@ const Register = () => {
                             </div>
                             <div className=" form-group mb-3">
                                 <Controller
-                                    name="password"
+                                    name="userPwd"
                                     control={control}
                                     rules={{
                                         required: {
@@ -205,7 +210,7 @@ const Register = () => {
                                             message: "Enter valid Location."
                                         },
                                     }}
-                                    render={({ field }) => <input type="password" className={errors?.password?.message ? "form-control is-invalid" : "form-control"} placeholder="Password *" {...field} />}
+                                    render={({ field }) => <input type="password" className={errors?.userPwd?.message ? "form-control is-invalid" : "form-control"} placeholder="Password *" {...field} />}
                                 />
                                 {/* <input type="password" className={errors?.password?.message ? "form-control is-invalid" : "form-control"} placeholder="Password *" {...register("password", {
                                     required: {
@@ -216,7 +221,7 @@ const Register = () => {
                                         message: "Enter valid Location."
                                     }, minLength: 8, maxLength: 30
                                 })} /> */}
-                                <p className='text-danger errorMsg'>{errors.password?.message}</p>
+                                <p className='text-danger errorMsg'>{errors.userPwd?.message}</p>
                             </div>
                             <div className=" form-group mb-3">
                                 <Controller name="confirmPassword" control={control}
@@ -226,7 +231,7 @@ const Register = () => {
                                             message: "Confirm password is required."
                                         },
                                         validate: (value) =>
-                                            value === password || 'Passwords do not match',
+                                            value === userPwd || 'Passwords do not match',
                                     }}
                                     render={({ field }) => <input type="password" className={errors?.confirmPassword?.message ? "form-control is-invalid" : "form-control"} placeholder="Confirm Password *" {...field} />}
                                 />
@@ -314,4 +319,18 @@ const Register = () => {
     )
 }
 
-export default Register
+
+const mapStateToProps = (state: any) => {
+    return {
+
+    }
+}
+
+const mapDispatchToProps = (dispatch: any) => {
+    return {
+        signUp: (data: any) => dispatch(SignUp(data))
+    }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register)

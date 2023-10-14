@@ -1,8 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { signIn } from "../../apis";
+import { signIn,signUp } from "../../apis";
 
 const initialState = {
-    userDetails: undefined
+    userSignInDetails: undefined,
+    userSignUpDetails: undefined,
+
 }
 
 // reducers
@@ -11,23 +13,29 @@ const userSlice = createSlice({
     initialState,
     reducers: {
         userLoginSuccess: (state, action) => {
-            state.userDetails = action.payload;
+            state.userSignInDetails = action.payload;
         },
         userLoginFailure: (state, action) => {
-            state.userDetails = undefined;
-        }
+            state.userSignInDetails = undefined;
+        },
+        userSignUpSuccess: (state, action) => {
+            state.userSignUpDetails = action.payload;
+        },
+        userSignUpFailure: (state, action) => {
+            state.userSignUpDetails = undefined;
+        },
     }
 });
 
 const { reducer, actions } = userSlice;
 
-const { userLoginSuccess, userLoginFailure } = actions;
+const { userLoginSuccess, userLoginFailure,userSignUpSuccess, userSignUpFailure} = actions;
 
 export default reducer;
 
-export const SignIn = (userDetails: Object) => async (dispatch: any) => {
+export const SignIn = (userSignInDetails: Object) => async (dispatch: any) => {
     try {
-        const response = await signIn(userDetails);
+        const response = await signIn(userSignInDetails);
         if (response) {
             dispatch(userLoginSuccess(response));
         } else {
@@ -35,5 +43,18 @@ export const SignIn = (userDetails: Object) => async (dispatch: any) => {
         }
     } catch (error: any) {
         dispatch(userLoginFailure("Server Not Available"));
+    }
+}
+
+export const SignUp = (userSignUpDetails: Object) => async (dispatch: any) => {
+    try {
+        const response = await signUp(userSignUpDetails);
+        if (response) {
+            dispatch(userSignUpSuccess(response));
+        } else {
+            dispatch(userSignUpFailure("SignUp failed!"));
+        }
+    } catch (error: any) {
+        dispatch(userSignUpFailure("Server Not Available"));
     }
 }
