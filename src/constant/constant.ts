@@ -6,3 +6,15 @@ export const APIMsgType = {
     Warning: 3,
     Normal: 4
 }
+
+export const employeeUserMenu = [
+    { employeeMenuName: 'Profile', employeeRoute: '/profile', employeeId: 1 },
+    { employeeMenuName: 'Opportunities', employeeRoute: '/opportunities', employeeId: 2 },
+    { employeeMenuName: 'Posted Opportunities', employeeRoute: '/postedopportunities', employeeId: 3 }]
+
+export const employeeSideMenu = [
+    { employeeSideMenuName: 'Employee registration', employeeSideMenuRoute: '/employeeregistration', employeeSideMenuId: 1 },
+    { employeeSideMenuName: 'Staff management', employeeSideMenuRoute: '/staffmanagement', employeeSideMenuId: 2 },
+    { employeeSideMenuName: 'Data access', employeeSideMenuRoute: '/dataaccess', employeeSideMenuId: 3 },
+    { employeeSideMenuName: 'Attendance & Salary', employeeSideMenuRoute: '/attendance&salary', employeeSideMenuId: 4},
+    { employeeSideMenuName: 'Wallet & Ledger', employeeSideMenuRoute: '/wallet&ledger', employeeSideMenuId: 5 }]

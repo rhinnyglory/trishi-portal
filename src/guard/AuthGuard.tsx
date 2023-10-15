@@ -21,18 +21,22 @@ const AuthGuard: React.FunctionComponent<any> = props => {
 
   return (
     <div className="container-fluid  min-vh-100 dashboard">
+      <div className='row'>
+        <Header />
+      </div>
       <div className="row">
         {/* {toggle && (
         )} */}
-          <div className="col-4 col-md-2 px-0  bg-primary vh-100 position-fixed">
+          <div className="col-4 col-xl-2 px-0  bg-primary vh-100 ">
             <Sidebar></Sidebar>
           </div>
         {/* {toggle && <div className="col-4 col-md-2"></div>} */}
-        <div className="col px-0">
-          <Header />
+          <div className="col-8 col-xl-10 ">
+
           <>{children}</>
+          </div>
+        {/* <div className="col px-0"> */}
         </div>
-      </div>
     </div>
   )
 }
