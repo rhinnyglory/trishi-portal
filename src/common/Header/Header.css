@@ -2,3 +2,12 @@
     background-color: #126efd;
     color: white;
 }
+#nav-dropdown-dark-example{
+    color: white !important;
+}
+.dropdown-menu{
+    left: -120px !important;
+}
+.navbar-toggler-icon{
+    color: white !important;
+}
