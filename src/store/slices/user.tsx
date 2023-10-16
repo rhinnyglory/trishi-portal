@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { signIn,signUp } from "../../apis";
+import { signIn, signUpForEmployer } from "../../apis";
 
 const initialState = {
     userSignInDetails: undefined,
@@ -29,7 +29,7 @@ const userSlice = createSlice({
 
 const { reducer, actions } = userSlice;
 
-const { userLoginSuccess, userLoginFailure,userSignUpSuccess, userSignUpFailure} = actions;
+const { userLoginSuccess, userLoginFailure, userSignUpSuccess, userSignUpFailure } = actions;
 
 export default reducer;
 
@@ -46,9 +46,9 @@ export const SignIn = (userSignInDetails: Object) => async (dispatch: any) => {
     }
 }
 
-export const SignUp = (userSignUpDetails: Object) => async (dispatch: any) => {
+export const SignUpForEmployer = (userSignUpDetails: Object) => async (dispatch: any) => {
     try {
-        const response = await signUp(userSignUpDetails);
+        const response = await signUpForEmployer(userSignUpDetails);
         if (response) {
             dispatch(userSignUpSuccess(response));
         } else {
