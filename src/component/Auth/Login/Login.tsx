@@ -3,7 +3,7 @@ import "./Login.css"
 import { Link } from "react-router-dom"
 import { Controller, SubmitHandler, useForm } from "react-hook-form"
 import { SignIn } from "../../../store/slices/user"
-import { connect } from "react-redux"
+import { connect } from "react-redux";
 
 type FormValues = {
     userName: string
@@ -83,7 +83,7 @@ const Login = (props: any) => {
                             <h6>
                                 Forget Password{" "}
                                 <span>
-                                    <Link to="/auth/forgotPassword">Click Here</Link>
+                                    <Link to="/forgotPassword">Click Here</Link>
                                 </span>
                             </h6>
                         </div>
