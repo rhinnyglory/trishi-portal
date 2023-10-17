@@ -8,6 +8,9 @@
 .dropdown-menu{
     left: -120px !important;
 }
+.dropdown-menu a{ 
+    text-decoration: none;
+}
 .navbar-toggler-icon{
     color: white !important;
 }
