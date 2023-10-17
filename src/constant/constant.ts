@@ -21,3 +21,46 @@ export const employeeSideMenu = [
     { employeeSideMenuName: "Attendance & Salary", employeeSideMenuRoute: "/attendance&salary", employeeSideMenuId: 4 },
     { employeeSideMenuName: "Wallet & Ledger", employeeSideMenuRoute: "/wallet&ledger", employeeSideMenuId: 5 }
 ]
+
+export type FormValues = {
+    employerFname: string
+    employerMname: string
+    employerLname: string
+    email: string
+    mobile: string
+    addressLine1: string
+    addressLine2: string
+    addressLine3: string
+    companyName: string
+    gstin: string
+    pan: string
+    pin: string
+    location: string
+    userName: string
+    userPwd: string
+    confirmPassword: string
+    otpValue: string
+}
+
+export type EmployeeFormValues = {
+    aadharCardPic: object
+    aadharNumber: string
+    name: string
+    pan: string
+    mobile: string
+    email: string
+    pin: string
+    area: string
+    state: string
+    district: string
+    mandal: string
+    accountNum: string
+    ifsc: string
+    gstin: string
+    bankName: string
+    accountType: string
+    userName: string
+    userPwd: string
+    confirmPassword: string
+    otpValue: string
+}

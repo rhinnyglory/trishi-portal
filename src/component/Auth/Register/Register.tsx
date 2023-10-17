@@ -9,56 +9,16 @@ import { connect } from "react-redux";
 import ModalPopup from '../../../common/Modal/Modal';
 import { useLocation } from 'react-router-dom';
 // import { createWorker } from "tesseract.js";
-
-type FormValues = {
-    employerFname: string
-    employerMname: string
-    employerLname: string
-    email: string
-    mobile: string
-    addressLine1: string
-    addressLine2: string
-    addressLine3: string
-    companyName: string
-    gstin: string
-    pan: string
-    pin: string
-    location: string
-    userName: string
-    userPwd: string
-    confirmPassword: string
-    otpValue: string
-}
-
-type EmployeeFormValues = {
-    aadharCardPic: object
-    aadharNumber: string
-    name: string
-    pan: string
-    mobile: string
-    email: string
-    pin: string
-    area: string
-    state: string
-    district: string
-    mandal: string
-    accountNum: string
-    ifsc: string
-    gstin: string
-    bankName: string
-    accountType: string
-    userName: string
-    userPwd: string
-    confirmPassword: string
-    otpValue: string
-}
+import { FormValues, EmployeeFormValues } from '../../../constant/constant';
 
 const Register = (props: any) => {
-    const { handleSubmit: handleSubmitForm1, register, watch, control, formState: { errors }, getValues: getValuesForm1, reset: resetForm1 } = useForm<FormValues>();
+    const { handleSubmit: handleSubmitForm1, register, watch, control: control, formState: { errors }, getValues: getValuesForm1, reset: resetForm1 } = useForm<FormValues>();
     const { handleSubmit: handleSubmitForm2, control: controlForm2, setValue: setValueForm2, formState: { errors: errorsForm2 }, reset: resetForm2 } = useForm<FormValues>();
     const { handleSubmit: handleSubmitForm3, control: controlForm3, setValue: setValueForm3, formState: { errors: errorsForm3 }, getValues: getValuesForm3, reset: resetForm3 } = useForm<EmployeeFormValues>();
     const userPwdRec = watch('userPwd', '');
     const userPwdEmp = useWatch({ control: controlForm3, name: "userPwd" });
+    const [isRecUsernameAvbl, setIsRecUsernameAvbl] = useState(false);
+    const [isEmpUsernameAvbl, setIsEmpUsernameAvbl] = useState(false);
     // const confirmPassword = watch('confirmPassword', '');
     // const confirmPasswordRec = useWatch({ control: control, name: "confirmPassword" });
     // const confirmPasswordEmp = useWatch({ control: controlForm2, name: "confirmPassword" });
@@ -87,15 +47,31 @@ const Register = (props: any) => {
         }
     }
 
-    const CheckUsernameAvailability = (value: any) => {
-        const form1Values = getValuesForm1();
-        return true;
+    let timer: any = 0;
+    const CheckRecUsernameAvailability = (e: any) => {
+        clearTimeout(timer);
+        if (e.target.value != "") {
+            timer = setTimeout(() => {
+                setIsRecUsernameAvbl(!isRecUsernameAvbl)
+                console.log("hellooooo", e.target.value)
+            }, 3000);
+        }
     }
+
+    const CheckEmpUsernameAvailability = (e: any) => {
+        console.log("Form 1 Input value changed:", e.target.value);
+        clearTimeout(timer);
+        if (e.target.value != "") {
+            timer = setTimeout(() => {
+                setIsEmpUsernameAvbl(!isEmpUsernameAvbl)
+                console.log("hiiiiii", e.target.value)
+            }, 3000);
+        }
+    };
 
     console.log(errors, "errors")
 
     const [show, setShow] = useState(false);
-
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const location = useLocation();
@@ -105,23 +81,25 @@ const Register = (props: any) => {
         resetForm1();
         resetForm2();
         resetForm3();
-    }, [showRecruiter])
+    }, [showRecruiter]);
+
 
     return (
         <>
             {location.pathname == "/register" ?
                 <ul className="nav nav-tabs nav-justified" id="myTab" role="tablist">
                     <li className="nav-item">
-                        <a className={showRecruiter == "Recruiter" ? "nav-link active" : "nav-link"} id="home-tab" data-toggle="tab" onClick={() => setShowRecruiter("Recruiter")} role="tab" aria-controls="home" aria-selected="true">Recruiter</a>
+                        <a className={showRecruiter == "Employee" ? "nav-link active" : "nav-link"} id="profile-tab" data-toggle="tab" onClick={() => setShowRecruiter("Employee")} role="tab" aria-controls="profile" aria-selected="false">Employee</a>
                     </li>
                     <li className="nav-item">
-                        <a className={showRecruiter == "Employee" ? "nav-link active" : "nav-link"} id="profile-tab" data-toggle="tab" onClick={() => setShowRecruiter("Employee")} role="tab" aria-controls="profile" aria-selected="false">Employee</a>
+                        <a className={showRecruiter == "Recruiter" ? "nav-link active" : "nav-link"} id="home-tab" data-toggle="tab" onClick={() => setShowRecruiter("Recruiter")} role="tab" aria-controls="home" aria-selected="true">Recruiter</a>
                     </li>
                 </ul> : <></>}
             <div className="tab-content" id="myTabContent">
                 {showRecruiter == "Recruiter" ?
                     <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                         <h3 className="register-heading">Sign Up</h3>
+                        {/* Recruiter Form */}
                         <form onSubmit={handleSubmitForm1(GenerateOTPForSignUp)}>
                             <div className="row authenticate-form">
                                 <div className="col-md-6">
@@ -250,14 +228,34 @@ const Register = (props: any) => {
                                         <p className='text-danger errorMsg'>{errors.location?.message}</p>
                                     </div>
                                     <div className=" form-group mb-3">
-                                        <input type="text" className={errors?.userName?.message ? "form-control is-invalid" : "form-control"} placeholder="Username *" {...register("userName", {
+                                        <p>{isRecUsernameAvbl}</p>
+                                        <Controller
+                                            name="userName"
+                                            control={control}
+                                            rules={{
+                                                required: {
+                                                    value: true,
+                                                    message: "User name is required."
+                                                }, minLength: 3, validate: (value) => isRecUsernameAvbl || 'Please enter unique username'
+                                            }}
+                                            render={({ field }) => (
+                                                <input className={errors?.userName?.message ? "form-control is-invalid" : !isRecUsernameAvbl ? "form-control" : "form-control is-valid"} placeholder="Username *"
+                                                    {...field}
+                                                    onChange={(e) => {
+                                                        field.onChange(e); // This is necessary to update the form state
+                                                        CheckRecUsernameAvailability(e); // Custom onChange handling for form 1 
+                                                    }}
+                                                />
+                                            )}
+                                        />
+                                        {/* <input type="text" className={errors?.userName?.message ? "form-control is-invalid" : "form-control"} placeholder="Username *" {...register("userName", {
                                             required: {
                                                 value: true,
                                                 message: "User name is required."
                                             },
-                                            // validate: (value: any) =>
-                                            //     value == CheckUsernameAvailability(value) || "Please enter different username", minLength: 3
-                                        })} />
+                                            validate: (value: any) =>
+                                                value == CheckUsernameAvailability(value) || "Please enter different username", minLength: 3
+                                        })} /> */}
                                         <p className='text-danger errorMsg'>{errors.userName?.message}</p>
                                     </div>
                                     <div className=" form-group mb-3">
@@ -302,6 +300,7 @@ const Register = (props: any) => {
                     </div> :
                     <div className="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                         <h3 className="register-heading">Sign Up</h3>
+                        {/* Employee Form */}
                         <form onSubmit={handleSubmitForm3(GenerateOTPForSignUp)}>
                             <div className="row authenticate-form">
                                 <div className="col-md-6">
@@ -317,13 +316,14 @@ const Register = (props: any) => {
                                             rules={{
                                                 required: { value: true, message: "Aadhar card pic is required." },
                                                 validate: (value: any) => {
-                                                    if (value[0].size > 5 * 1024 * 1024) {
-                                                        return `File size must be less than ${5}MB`;
+                                                    if (value.size > 5 * 1024 * 1024 || value.size < 2 * 1024 * 1024) {
+                                                        return `File size must be less than ${5}MB and greater than ${2}MB`;
                                                     }
                                                     return true;
                                                 }
                                             }} render={({ field }) => (
-                                                <input type="file" className={errorsForm3?.aadharCardPic?.message ? "form-control is-invalid" : "form-control"} onChange={(e) => field.onChange(e.target.files)} />
+                                                <input type="file" accept="image/png, image/jpg, image/jpeg" className={errorsForm3?.aadharCardPic?.message ? "form-control is-invalid" : "form-control"}
+                                                    onChange={(e) => { field.onChange(e.target.files); setValueForm3("aadharCardPic", e.target?.files != null ? e.target?.files[0] : {}); }} />
                                             )}
                                         />
                                         <p className="text-danger errorMsg">{errorsForm3?.aadharCardPic?.message}</p>
@@ -396,10 +396,10 @@ const Register = (props: any) => {
                                             }
                                         }} render={({ field }) =>
                                             <select className={errorsForm3?.state?.message ? "form-control is-invalid" : "form-control"} placeholder='Select state' {...field}>
-                                                <option selected disabled>Select state</option>
-                                                <option>AP</option>
-                                                <option>UP</option>
-                                                <option>MP</option>
+                                                <option selected value={""} disabled>Select state</option>
+                                                <option value={"AP"}>AP</option>
+                                                <option value={"UP"}>UP</option>
+                                                <option value={"MP"}>MP</option>
                                             </select>} />
                                         <p className='text-danger errorMsg'>{errorsForm3.state?.message}</p>
                                     </div>
@@ -413,11 +413,11 @@ const Register = (props: any) => {
                                             }
                                         }} render={({ field }) =>
                                             <select className={errorsForm3?.district?.message ? "form-control is-invalid" : "form-control"} placeholder='Select district' {...field}>
-                                                <option selected disabled>Select district</option>
-                                                <option>Krishna</option>
-                                                <option>Guntur</option>
-                                                <option>Godavari</option>
-                                                <option>Kurnool</option>
+                                                <option selected value={""} disabled>Select district</option>
+                                                <option value={"Krishna"}>Krishna</option>
+                                                <option value={"Guntur"}>Guntur</option>
+                                                <option value={"Godavari"}>Godavari</option>
+                                                <option value={"Kurnool"}>Kurnool</option>
                                             </select>} />
                                         <p className='text-danger errorMsg'>{errorsForm3.district?.message}</p>
                                     </div>
@@ -429,11 +429,11 @@ const Register = (props: any) => {
                                             }
                                         }} render={({ field }) =>
                                             <select className={errorsForm3?.mandal?.message ? "form-control is-invalid" : "form-control"} placeholder='Select district' {...field}>
-                                                <option selected disabled>Select mandal</option>
-                                                <option>Bandar</option>
-                                                <option>Pedana</option>
-                                                <option>Gudivada</option>
-                                                <option>Vijayawada</option>
+                                                <option selected value={""} disabled>Select mandal</option>
+                                                <option value={"Bandar"}>Bandar</option>
+                                                <option value={"Pedana"}>Pedana</option>
+                                                <option value={"Gudivada"}>Gudivada</option>
+                                                <option value={"Vijayawada"}>Vijayawada</option>
                                             </select>} />
                                         <p className='text-danger errorMsg'>{errorsForm3.mandal?.message}</p>
                                     </div>
@@ -490,8 +490,11 @@ const Register = (props: any) => {
                                             required: {
                                                 value: true,
                                                 message: "Username is required."
-                                            }
-                                        }} render={({ field }) => <input type='text' className={errorsForm3?.userName?.message ? "form-control is-invalid" : "form-control"} placeholder="Username *" {...field} />} />
+                                            }, validate: (value) => isEmpUsernameAvbl || 'Please enter unique username', minLength: 3
+                                        }} render={({ field }) => <input type='text' className={errorsForm3?.userName?.message ? "form-control is-invalid" : !isEmpUsernameAvbl ? "form-control" : "form-control is-valid"} placeholder="Username *" {...field} onChange={(e) => {
+                                            field.onChange(e);
+                                            CheckEmpUsernameAvailability(e);
+                                        }} />} />
                                         <p className='text-danger errorMsg'>{errorsForm3.userName?.message}</p>
                                     </div>
                                     <div className=" form-group mb-3">
