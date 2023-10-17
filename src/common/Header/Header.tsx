@@ -5,6 +5,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import './Header.css'
 import { employeeUserMenu } from '../../constant/constant';
+import { Link } from 'react-router-dom';
 
 const Header = ({ Toggle }: any) => {
 
@@ -20,7 +21,7 @@ const Header = ({ Toggle }: any) => {
                 id="nav-dropdown-dark-example"
                 title="User"     
                 menuVariant="white">
-                {employeeUserMenu.map((menu)=> <NavDropdown.Item key={menu.employeeId}  href="#action/3.2">{menu.employeeMenuName}</NavDropdown.Item>)}
+                {employeeUserMenu.map((menu)=> <NavDropdown.Item key={menu.employeeId}><Link to={menu.employeeRoute}>{menu.employeeMenuName}</Link></NavDropdown.Item>)}
               </NavDropdown>
             </Nav>
           </Navbar.Collapse>
